@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://evhnvbkua82y"]
+
+[ext_resource type="Script" path="res://scenes/selector_component.gd" id="1_tob3f"]
+
+[node name="selector_component" type="Area2D"]
+script = ExtResource("1_tob3f")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

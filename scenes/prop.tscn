@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://bjdvyltbo4lwu"]
+
+[ext_resource type="Texture2D" uid="uid://c30gcwmohuffs" path="res://assets/character and tileset/Dungeon_Tileset.png" id="1_tpfpu"]
+[ext_resource type="PackedScene" uid="uid://evhnvbkua82y" path="res://scenes/selector_component.tscn" id="2_355ud"]
+[ext_resource type="Texture2D" uid="uid://cbvb3i51k407k" path="res://assets/interface/square_left_2_4.png" id="3_mnygd"]
+[ext_resource type="PackedScene" uid="uid://bge30dso7i7xp" path="res://context_menu.tscn" id="4_c8prs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgdap"]
+size = Vector2(16, 16)
+
+[node name="prop" type="Node2D"]
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tpfpu")
+region_enabled = true
+region_rect = Rect2(112, 96, 16, 16)
+
+[node name="Selector" parent="." instance=ExtResource("2_355ud")]
+
+[node name="Sprite" type="Sprite2D" parent="Selector"]
+visible = false
+texture = ExtResource("3_mnygd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Selector"]
+shape = SubResource("RectangleShape2D_cgdap")
+
+[node name="ContextMenu" parent="." instance=ExtResource("4_c8prs")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+_popup_menu = Object(PopupMenu,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","disable_3d":false,"use_xr":false,"own_world_3d":false,"world_3d":null,"transparent_bg":false,"handle_input_locally":true,"snap_2d_transforms_to_pixel":false,"snap_2d_vertices_to_pixel":false,"msaa_2d":0,"msaa_3d":0,"screen_space_aa":0,"use_taa":false,"use_debanding":false,"use_occlusion_culling":false,"mesh_lod_threshold":1.0,"debug_draw":0,"use_hdr_2d":false,"scaling_3d_mode":0,"scaling_3d_scale":1.0,"texture_mipmap_bias":0.0,"fsr_sharpness":0.2,"vrs_mode":0,"vrs_texture":null,"canvas_item_default_texture_filter":1,"canvas_item_default_texture_repeat":0,"audio_listener_enable_2d":false,"audio_listener_enable_3d":false,"physics_object_picking":false,"physics_object_picking_sort":false,"gui_disable_input":false,"gui_snap_controls_to_pixels":true,"gui_embed_subwindows":false,"sdf_oversize":1,"sdf_scale":1,"positional_shadow_atlas_size":2048,"positional_shadow_atlas_16_bits":true,"positional_shadow_atlas_quad_0":2,"positional_shadow_atlas_quad_1":2,"positional_shadow_atlas_quad_2":3,"positional_shadow_atlas_quad_3":4,"canvas_cull_mask":4294967295,"mode":0,"title":"Prop","initial_position":0,"position":Vector2i(0, 0),"size":Vector2i(100, 89),"mouse_passthrough_polygon":PackedVector2Array(),"visible":false,"wrap_controls":true,"transient":true,"exclusive":false,"unresizable":true,"borderless":true,"always_on_top":false,"transparent":false,"unfocusable":false,"popup_window":true,"extend_to_title":false,"mouse_passthrough":false,"min_size":Vector2i(0, 0),"max_size":Vector2i(16384, 16384),"keep_title_visible":false,"content_scale_size":Vector2i(0, 0),"content_scale_mode":0,"content_scale_aspect":0,"content_scale_stretch":0,"content_scale_factor":1.0,"auto_translate":true,"theme":null,"theme_type_variation":&"","hide_on_item_selection":true,"hide_on_checkable_item_selection":true,"hide_on_state_item_selection":false,"submenu_popup_delay":0.3,"allow_search":true,"item_count":3,"item_0/text":"Open","item_0/id":0,"item_1/text":"Close","item_1/id":1,"item_2/text":"Break","item_2/id":2,"script":null)
+
+_selector = Object(Area2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"disable_mode":0,"collision_layer":1,"collision_mask":1,"collision_priority":1.0,"input_pickable":true,"monitoring":true,"monitorable":true,"priority":0,"gravity_space_override":0,"gravity_point":false,"gravity_point_unit_distance":0.0,"gravity_point_center":Vector2(0, 1),"gravity_direction":Vector2(0, 1),"gravity":980.0,"linear_damp_space_override":0,"linear_damp":0.1,"angular_damp_space_override":0,"angular_damp":1.0,"audio_bus_override":false,"audio_bus_name":&"Master","script":Resource("res://scenes/selector_component.gd"),"selector_sprite":null,"collision_shape":null)
+
+
+[node name="PopupMenu" type="PopupMenu" parent="ContextMenu"]
+title = "Prop"
+size = Vector2i(100, 89)
+item_count = 3
+item_0/text = "Open"
+item_0/id = 0
+item_1/text = "Close"
+item_1/id = 1
+item_2/text = "Break"
+item_2/id = 2
