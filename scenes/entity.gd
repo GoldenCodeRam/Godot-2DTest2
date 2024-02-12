@@ -2,8 +2,7 @@ class_name Entity extends Node2D
 
 var grid_position: Vector2i = Vector2i(-2, -1)
 
-func test():
-	$animation_tree["parameters/playback"].travel("walk")
+var movement_component: MovementComponent = null
 
 func _ready():
 	# Spawn entity initial position
@@ -12,11 +11,20 @@ func _ready():
 func entity_selected():
 	EntityManager.selected_entity = self
 
-	add_child(MovementComponent.new())
+	if !movement_component:
+		movement_component = MovementComponent.new()
+		movement_component._on_status_changed.connect(_on_movement_component_status_changed)
+		add_child(movement_component)
 
 	if !EntityManager.selected_entity_changed.is_connected(_on_entity_manager_entity_changed):
 		EntityManager.selected_entity_changed.connect(_on_entity_manager_entity_changed)
 
+func _on_movement_component_status_changed(status: MovementComponent.Status):
+	match(status):
+		MovementComponent.Status.MOVING:
+			$animation_component/animation_tree["parameters/playback"].travel("walk")
+		MovementComponent.Status.IDLE:
+			$animation_component/animation_tree["parameters/playback"].travel("idle")
 
 func _on_entity_manager_entity_changed(entity: Entity):
 	# As the entity is null, deselect
@@ -26,5 +34,7 @@ func _on_entity_manager_entity_changed(entity: Entity):
 		($selector_component as SelectorComponent).deselect()
 		EntityManager.selected_entity_changed.disconnect(_on_entity_manager_entity_changed)
 
-		if $movement_component:
-			remove_child($movement_component)
+		if movement_component:
+			movement_component.queue_free()
+			remove_child(movement_component)
+			movement_component = null
