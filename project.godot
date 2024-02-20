@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="2dTest2"
-run/main_scene="res://scenes/world.tscn"
+run/main_scene="res://components/entity/world.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 EntityManager="*res://global/entity_manager.gd"
-GlobalAStarGrid="*res://scenes/global_a_star_grid.tscn"
+GlobalAStarGrid="*res://global/global_a_star_grid.tscn"
 
 [input]
 

@@ -5,6 +5,17 @@ const GRID_SIZE: int = 16
 @onready var a_star := AStar2D.new()
 @onready var used_cells := get_used_cells(0)
 
+var mutex: Mutex = Mutex.new()
+
+func is_mouse_position_walkable() -> bool:
+	var mouse_position = get_mouse_grid_position()
+	var cell_data := get_cell_tile_data(0, mouse_position)
+	if cell_data != null:
+		return cell_data.get_custom_data('walkable')
+
+	# The cell does not exist. It's outside the TileMap.
+	return false
+
 func grid_position_to_global_position(point: Vector2i) -> Vector2:
 	return point * GRID_SIZE
 
@@ -13,12 +24,17 @@ func global_position_to_grid_position(pos: Vector2) -> Vector2i:
 
 func get_grid_path(start: Vector2i, end: Vector2i) -> PackedVector2Array:
 	var path = a_star.get_point_path(id(start), id(end))
-	path.remove_at(0)
+
+	if !path.is_empty():
+		path.remove_at(0)
+
 	return path
+
+func get_path_to_mouse_position(start: Vector2i) -> PackedVector2Array:
+	return get_grid_path(start, get_mouse_grid_position())
 
 func get_mouse_grid_position() -> Vector2i:
 	return global_position_to_grid_position(get_global_mouse_position())
-
 
 func _ready():
 	_add_points()

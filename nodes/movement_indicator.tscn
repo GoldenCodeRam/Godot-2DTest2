@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvaa8csadg64t"]
+
+[ext_resource type="Script" path="res://nodes/movement_indicator.gd" id="1_4puux"]
+[ext_resource type="Texture2D" uid="uid://cew6rpky5nnuo" path="res://assets/movement_indicator.png" id="2_w3t0k"]
+
+[node name="movement_indicator" type="Node2D"]
+modulate = Color(1, 1, 1, 0.196078)
+script = ExtResource("1_4puux")
+
+[node name="sprite_2d" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_w3t0k")

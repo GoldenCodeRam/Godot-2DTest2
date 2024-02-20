@@ -1,9 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://cbmotlh0bef3s"]
+[gd_scene load_steps=17 format=3 uid="uid://cbmotlh0bef3s"]
 
 [ext_resource type="Texture2D" uid="uid://bqr84rbh86wna" path="res://assets/character and tileset/Dungeon_Character.png" id="1_awu7r"]
 [ext_resource type="Script" path="res://scenes/entity.gd" id="1_pb84o"]
 [ext_resource type="Texture2D" uid="uid://cbvb3i51k407k" path="res://assets/interface/square_left_2_4.png" id="3_eli2f"]
 [ext_resource type="PackedScene" uid="uid://evhnvbkua82y" path="res://scenes/selector_component.tscn" id="3_hptlo"]
+[ext_resource type="Script" path="res://components/animation_component/animation_component.gd" id="4_ujoov"]
+[ext_resource type="Script" path="res://components/animation_component/entity_animation_controller.gd" id="5_5pc7b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gy8y0"]
 size = Vector2(16, 16)
@@ -120,6 +122,8 @@ states/walk/position = Vector2(546, 100)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_22qph"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_p0ofp")]
 
 [node name="entity" type="Node2D"]
+z_index = 1
+y_sort_enabled = true
 script = ExtResource("1_pb84o")
 
 [node name="selector_component" parent="." node_paths=PackedStringArray("selector_sprite", "collision_shape") instance=ExtResource("3_hptlo")]
@@ -134,9 +138,17 @@ texture = ExtResource("3_eli2f")
 [node name="collision_shape_2d" type="CollisionShape2D" parent="selector_component"]
 shape = SubResource("RectangleShape2D_gy8y0")
 
-[node name="animation_component" type="Node2D" parent="."]
+[node name="animation_component" type="Node2D" parent="." node_paths=PackedStringArray("animation_tree", "animation_controller")]
+y_sort_enabled = true
+script = ExtResource("4_ujoov")
+animation_tree = NodePath("animation_tree")
+animation_controller = NodePath("entity_animation_controller")
+
+[node name="entity_animation_controller" type="Node" parent="animation_component"]
+script = ExtResource("5_5pc7b")
 
 [node name="sprite" type="Sprite2D" parent="animation_component"]
+y_sort_enabled = true
 texture_filter = 1
 position = Vector2(-1, 0)
 rotation = -0.0872665

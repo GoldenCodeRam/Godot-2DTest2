@@ -3,7 +3,7 @@ class_name MovementIndicatorComponent extends Node2D
 var movement_indicators = []
 var last_mouse_grid_position = null
 
-func _init():
+func _ready():
 	z_index = 1
 
 func _process(_delta: float):
@@ -14,10 +14,8 @@ func _process(_delta: float):
 		return
 
 	var grid_position = GlobalAStarGrid.global_position_to_grid_position(global_position)
-	var path = GlobalAStarGrid.get_grid_path(
-		grid_position,
-		GlobalAStarGrid.get_mouse_grid_position()
-	)
+	var mouse_position = GlobalAStarGrid.get_mouse_grid_position()
+	var path = GlobalAStarGrid.get_grid_path(grid_position, mouse_position)
 
 	for i in range(movement_indicators.size()):
 		movement_indicators.pop_at(0).queue_free()
@@ -45,18 +43,15 @@ func _process(_delta: float):
 		movement_indicators.append(mouse_indicator)
 
 func _draw():
-	return 
-
-	var grid_position = GlobalAStarGrid.global_position_to_grid_position(global_position)
-	var path = GlobalAStarGrid.get_grid_path(
-		grid_position,
-		GlobalAStarGrid.get_mouse_grid_position()
-	)
-
-	for n in range(1, path.size()):
-		draw_line(
-			(path[n - 1] - Vector2(grid_position.x, grid_position.y)) * GlobalAStarGrid.GRID_SIZE, 
-			(path[n] - Vector2(grid_position.x, grid_position.y)) * GlobalAStarGrid.GRID_SIZE, Color.CORAL
-		)
-
-
+	# var grid_position = GlobalAStarGrid.global_position_to_grid_position(global_position)
+	# var path = GlobalAStarGrid.get_grid_path(
+	# 	grid_position,
+	# 	GlobalAStarGrid.get_mouse_grid_position()
+	# )
+	#
+	# for n in range(1, path.size()):
+	# 	draw_line(
+	# 		(path[n - 1] - Vector2(grid_position.x, grid_position.y)) * GlobalAStarGrid.GRID_SIZE, 
+	# 		(path[n] - Vector2(grid_position.x, grid_position.y)) * GlobalAStarGrid.GRID_SIZE, Color.CORAL
+	# 	)
+	pass
